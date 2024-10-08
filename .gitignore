@@ -1,4 +1,4 @@
-Copynode_modules/
+/node_modules
 .env
 
 # Build files
