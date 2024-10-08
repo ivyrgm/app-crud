@@ -45,7 +45,6 @@ export default function TodoList() {
       const data: Todo[] = await response.json();
       setTodos(data);
     } catch (error) {
-      // Do not set error state here as we are removing error handling
       console.error('Failed to load todos');
     } finally {
       setIsLoading(false);
