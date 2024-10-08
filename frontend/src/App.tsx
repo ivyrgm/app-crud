@@ -6,9 +6,7 @@ import {
   Typography,
   TextField,
   Button,
-  Checkbox,
   IconButton,
-  Alert,
   List,
   ListItem,
   ListItemText,
@@ -33,7 +31,6 @@ export default function TodoList() {
   const [newTodo, setNewTodo] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
-  const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -48,7 +45,8 @@ export default function TodoList() {
       const data: Todo[] = await response.json();
       setTodos(data);
     } catch (error) {
-      setError('Failed to load todos');
+      // Do not set error state here as we are removing error handling
+      console.error('Failed to load todos');
     } finally {
       setIsLoading(false);
     }
@@ -69,22 +67,7 @@ export default function TodoList() {
       setTodos([todo, ...todos]);
       setNewTodo('');
     } catch (error) {
-      setError('Failed to add todo');
-    }
-  };
-
-  const toggleTodo = async (id: string, completed: boolean) => {
-    try {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: !completed })
-      });
-      if (!response.ok) throw new Error('Failed to update todo');
-      const updatedTodo: Todo = await response.json();
-      setTodos(todos.map(todo => todo._id === id ? updatedTodo : todo));
-    } catch (error) {
-      setError('Failed to update todo');
+      console.error('Failed to add todo');
     }
   };
 
@@ -102,7 +85,7 @@ export default function TodoList() {
       setTodos(todos.map(todo => todo._id === id ? updatedTodo : todo));
       setEditingId(null);
     } catch (error) {
-      setError('Failed to update todo');
+      console.error('Failed to update todo');
     } finally {
       setIsLoading(false);
     }
@@ -114,7 +97,7 @@ export default function TodoList() {
       if (!response.ok) throw new Error('Failed to delete todo');
       setTodos(todos.filter(todo => todo._id !== id));
     } catch (error) {
-      setError('Failed to delete todo');
+      console.error('Failed to delete todo');
     }
   };
 
@@ -122,21 +105,15 @@ export default function TodoList() {
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Todo List
+          My TODO List
         </Typography>
-
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
 
         <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 1, mb: 3 }}>
           <TextField
             fullWidth
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}
-            placeholder="Add a new todo"
+            placeholder="Add a new todo xD"
             disabled={isLoading}
             size="small"
           />
@@ -192,11 +169,6 @@ export default function TodoList() {
                   </Box>
                 }
               >
-                <Checkbox
-                  checked={todo.completed}
-                  onChange={() => toggleTodo(todo._id, todo.completed)}
-                  edge="start"
-                />
                 {editingId === todo._id ? (
                   <TextField
                     fullWidth
