@@ -4,7 +4,8 @@ A full-stack TODO list application built with React.js (frontend), Node.js/Expre
 
 ## Screenshots
 
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/5ba1905f-eab1-4a6e-960d-736b27527a65)
+
 
 ## Features
 
@@ -20,46 +21,33 @@ A full-stack TODO list application built with React.js (frontend), Node.js/Expre
 - Database: MongoDB
 - Version Control: Git
 
+## Prerequisites
+Before you begin, ensure you have met the following requirements:
+- **Node.js**: You need Node.js and npm installed on your machine. [Download Node.js](https://nodejs.org/)
+- **MongoDB**: A MongoDB instance is required either locally or via MongoDB Atlas. [Install MongoDB](https://docs.mongodb.com/manual/installation/)
 
 ## Installation & Setup
 
-1. Clone the repository:
-```bash
-git clone https://github.com/ivyrgm/app-crud.git
-cd app-crud
-```
-
-2. Install backend dependencies:
-```bash
-cd server
-npm install
-```
-
-3. Install frontend dependencies:
-```bash
-cd ../client
-npm install
-```
-
-4. Create a `.env` file in the server directory with your MongoDB connection string:
-```
-MONGODB_URI=your_mongodb_connection_string
-PORT=5000
-```
-
+1. Navigate into the backend folder:
+      cd backend
+2. Install the server dependencies:
+      npm install
+3. Create a .env file for environment variables:
+      touch .env
+4. Inside the .env file, add the following:
+      MONGODB_URI=mongodb://localhost:27017/app_crud_db
+      PORT=5000
 5. Start the backend server:
-```bash
-cd ../server
-npm start
-```
+      npm start
+The server will be available at `http://localhost:5000`
 
-6. Start the frontend development server:
-```bash
-cd ../client
-npm start
-```
-
-The application will be available at `http://localhost:3000`
+6. Navigate into the frontend folder:
+      cd frontend
+7. Install the server dependencies:
+      npm install
+8. Start the frontend server:
+      npm start
+The server will be available at `http://localhost:3000`
 
 ## Git Commands Used
 
@@ -67,15 +55,5 @@ The application will be available at `http://localhost:3000`
 git init
 git add .
 git commit -m "message"
-git push origin main
+git push
 ```
-
-## Gitflow Workflow
-
-1. Created main branch
-2. Created develop branch from main
-3. Created feature branches for each functionality:
-   - feature/todo-crud
-   - feature/styling
-4. Merged feature branches into develop
-5. Merged develop into main for release
